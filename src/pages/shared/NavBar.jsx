@@ -1,31 +1,31 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import AuthContext from "../../context/AuthContext/AuthContext";
-import jobIcon from '../../../public/favicon.png'
+import jobIcon from "../../../public/favicon.png";
 
 const NavBar = () => {
+  const { user, signOutUser } = useContext(AuthContext);
 
-  const {user,signOutUser} = useContext(AuthContext);
-
-  const handleSignOut = () =>{
+  const handleSignOut = () => {
     signOutUser()
-    .then(() =>{
-      console.log('Sign Out Done');
-      
-    })
-    .catch(error =>{
-      console.log(error.message);
-      
-    })
-  }
+      .then(() => {
+        console.log("Sign Out Done");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   const links = (
     <>
       <li>
-      <NavLink to='/'>Home</NavLink>
-      <NavLink to='/'>Home</NavLink>
-      <NavLink to='/'>Home</NavLink>
+        <NavLink to="/">Home</NavLink>
       </li>
-      
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
     </>
   );
   return (
@@ -52,33 +52,32 @@ const NavBar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-          {links}
+            {links}
           </ul>
         </div>
-        <Link to='/' className="btn btn-ghost text-xl">
+        <Link to="/" className="btn btn-ghost text-xl">
           <img className="w-12" src={jobIcon} alt="Job Portal" />
           <h3 className="text-3xl">Job Portal</h3>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-        {links}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        {
-          user? <>
-          <button onClick={handleSignOut} className="btn">Sign Out</button></> : 
-          
+        {user ? (
           <>
-          
-          <Link to='/register'>Register</Link>
-        <Link to='/signIn'>
-        
-        <button className="btn">Sign In</button>
-        </Link></>
-        }
-        
+            <button onClick={handleSignOut} className="btn">
+              Sign Out
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/register">Register</Link>
+            <Link to="/signIn">
+              <button className="btn">Sign In</button>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
